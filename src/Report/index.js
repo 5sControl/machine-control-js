@@ -51,5 +51,5 @@ const report = {
 
 dispatcher.on("machine control report ready", async ({snapshots}) => {
     for (const snapshot of snapshots) await report.add(snapshot)
-    report.send({"operationType": "unknown"})
+    report.send({ "zoneId": 54, "zoneName": "zone1" })
 })
