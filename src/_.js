@@ -4,13 +4,6 @@ require('./Detector')
 require('./Control')
 require('./Report')
 
-const fs = require('fs')
-
-fs.writeFile(
-    `${process.env.folder}/test.txt`, "hi!",
-    error => { if (error) console.log(error) }
-)
-
 dispatcher.emit("container started", { message: `
 launch: ${process.env.launch}
 camera_url: ${process.env.camera_url}
