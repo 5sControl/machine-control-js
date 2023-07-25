@@ -1,7 +1,7 @@
 class EventAccumulator {
 
     accumulator = 0
-    LIMIT = 5
+    LIMIT = 10
     snapshot
 
     constructor(outcome_event_name, income_event_name, cleanup_event_name) {
