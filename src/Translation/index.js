@@ -1,5 +1,5 @@
 const io = require('socket.io-client')
-const socketURL = process.env.socket_server || "http://172.16.101.100:3456"
+const socketURL = process.env.socket_server || `${process.env.server_url}:3456`
 const socket = io(socketURL)
 const Snapshot = require('./Snapshot.js')
 
