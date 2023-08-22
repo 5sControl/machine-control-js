@@ -1,4 +1,5 @@
 const ModelWorker = require('./workers/ModelWorker')
+const loadYoloNAS = require('./models/yolo-nas')
 const {bboxAtWorkspace} = require('../utils/2D')
 // const {createCanvas, Image} = require('@napi-rs/canvas')
 
@@ -8,51 +9,24 @@ class Detector {
     
     constructor() {
         if (!this.model) {
-            console.time(`detector models load`)
-            this.model = {
-                w: new ModelWorker("ww"),
-                // o: new ModelWorker("wo")
-            }
-            console.timeEnd(`detector models load`)
+            console.time(`detector model load`)
+            loadYoloNAS()
+            .then(model => this.model = model)
+            // this.model = new ModelWorker("nas")
+            console.timeEnd(`detector model load`)
         }
     }
     async detect(buffer) {
-        const ww_detections = await this.model.w.exec(buffer) // YoloDetection[]
-        // const window_detection = ww_detections.find(d => d.class === 'window' && d.score > 0.5 && withinWorkspace(d.bbox, this.WORKSPACE_RECT))
-        const worker_detection = ww_detections.find(d => d.class === 'worker' && d.score > 0.5 && bboxAtWorkspace(d.bbox, WORKSPACE_ZONE))
-        // const detect_window_and_worker = worker_detection && window_detection ? true : false
-        // const detect_nothing = !worker_detection && !window_detection
-
-        // let action_detection
-        // if (worker_detection) {
-        //     const workerBlob = await this.cutRegionFromBlob(buffer, worker_detection.bbox)
-        //     let wo_detections = await this.model.o.exec(workerBlob)
-        //     if (wo_detections[0]?.score > 0.9 && withinWorkspace(wo_detections[0]?.bbox, this.WORKSPACE_RECT)) {
-        //         wo_detections = wo_detections.map(d => {
-        //             d.x = d.x + worker_detection.x
-        //             d.y = d.y + worker_detection.y
-        //             d.bbox[0] = d.x
-        //             d.bbox[1] = d.y
-        //             return d
-        //         })
-        //         action_detection = wo_detections[0]
-        //     }
-        // }
-        return {
-            // window_detection,
-            worker_detection,
-            // detect_window_and_worker,
-            // detect_nothing,
-            // action_detection // undefined || YoloDetection
-        }
+        // const detections = await this.model.exec(buffer)
+        console.time("detect")
+        const detections = await this.model.detect(buffer)
+        const worker_detection = detections?.find(d => d.class === 'person' && d.score > 0.5 && bboxAtWorkspace(d.bbox, WORKSPACE_ZONE))
+        console.timeEnd("detect")
+        return { worker_detection }
     }
-    // /**
-    //  * @returns {Blob}
-    //  */
     // async cutRegionFromBlob(buffer, region) {
     
-    //     const [cHeight, cWidth] = [1080, 1920]
-    //     let canvas = createCanvas(cWidth, cHeight)
+    //     let canvas = createCanvas(1920, 1080)
     //     let ctx = canvas.getContext('2d')
     //     const image = new Image()
     //     image.src = buffer
@@ -86,4 +60,10 @@ class Detector {
 }
 
 const detector = new Detector()
-dispatcher.on("batch ready", async ({batch}) => detector.detectBatch(batch))
+// dispatcher.on("batch ready", async ({batch}) => detector.detectBatch(batch))
+dispatcher.on("new snapshot received", async ({snapshot}) => {
+    const detections = await detector.detect(snapshot.buffer)
+    snapshot.detections = detections
+    const event = detections.worker_detection ? "worker detected" : "worker not detected"
+    dispatcher.emit(event, {snapshot, notForConsole: true })
+})
