@@ -11,7 +11,7 @@ class EventAccumulator {
         this.zoneId = zoneId
     }
     accumulate(snapshot, zoneId) {
-        if ([this.zoneId, 0].includes(zoneId)) {
+        if (this.zoneId === zoneId) {
             this.accumulator++
             this.snapshot = snapshot
             this.is_enought()
