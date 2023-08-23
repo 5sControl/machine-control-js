@@ -21,7 +21,7 @@ class Translation {
             dispatcher.emit("translation get null buffer")
             return null
         }
-        if (buffer.length < 300000) {
+        if (buffer.length < 30000) {
             dispatcher.emit("translation get broken buffer", {message: `buffer length is ${buffer.length} \n`})
             return null
         }
