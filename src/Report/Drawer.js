@@ -11,9 +11,14 @@ class Drawer {
         await Promise.all(promises)
         return this.buffer
     }
-    async draw_detections(detections) {
-        let promises = [this.draw_box(global.WORKSPACE_ZONE, "green")]
-        if (detections?.worker_detection) promises.push(this.draw_box(detections.worker_detection.bbox, "blue"))
+    async draw_detections(snapshot) {
+        console.log("draw!", snapshot)
+        let promises = [this.draw_box(snapshot.zoneBbox, "green")]
+        if (snapshot.detections.length > 0) {
+            for (const person of snapshot.detections) {
+                promises.push(this.draw_box(person.bbox, "blue"))
+            }
+        }
         await Promise.all(promises)
         return this.buffer
     }

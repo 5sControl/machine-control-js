@@ -18,11 +18,12 @@ class Detector {
     }
     async detect(buffer) {
         // const detections = await this.model.exec(buffer)
-        console.time("detect")
+        // console.time("detect")
         const detections = await this.model.detect(buffer)
-        const worker_detection = detections?.find(d => d.class === 'person' && d.score > 0.5 && bboxAtWorkspace(d.bbox, WORKSPACE_ZONE))
-        console.timeEnd("detect")
-        return { worker_detection }
+        // const worker_detection = detections?.find(d => d.class === 'person' && d.score > 0.5)
+        // console.timeEnd("detect")
+        // return { worker_detection }
+        return detections
     }
     // async cutRegionFromBlob(buffer, region) {
     
@@ -63,7 +64,22 @@ const detector = new Detector()
 // dispatcher.on("batch ready", async ({batch}) => detector.detectBatch(batch))
 dispatcher.on("new snapshot received", async ({snapshot}) => {
     const detections = await detector.detect(snapshot.buffer)
-    snapshot.detections = detections
-    const event = detections.worker_detection ? "worker detected" : "worker not detected"
-    dispatcher.emit(event, {snapshot, notForConsole: true })
+    const persons = detections.filter(d => d.class === 'person')
+    snapshot.detections = persons
+
+    for (const zoneId in global.ZONES) {
+        snapshot.zoneBbox = global.ZONES[zoneId].bbox
+        if (persons.length > 0) {
+            for (const person of persons) {
+                if (bboxAtWorkspace(person.bbox, global.ZONES[zoneId].bbox)) {
+                    dispatcher.emit("worker detected", {snapshot, zoneId, notForConsole: true })
+                } else {
+                    dispatcher.emit("worker not detected", {snapshot, zoneId, notForConsole: true })
+                }
+            }
+        } else {
+            dispatcher.emit("worker not detected", {snapshot, zoneId, notForConsole: true })
+        }
+    }
+    
 })

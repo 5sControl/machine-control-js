@@ -5,9 +5,10 @@ class EventRegion {
     is_start = false
     snapshots = []
 
-    constructor(income_event, outcome_event) {
+    constructor(income_event, outcome_event, zoneId) {
         this.income_event = income_event
         this.outcome_event = outcome_event
+        this.zoneId = zoneId
         dispatcher.on(income_event.name, () => this.start())
         dispatcher.on(outcome_event.name, () => this.finish())
     }
@@ -33,8 +34,9 @@ class EventRegion {
         this.snapshots.push(this.income_event.snapshot)
         console.log(`----> get buffer finish event: ${this.outcome_event.name}`, typeof this.outcome_event.snapshot.buffer)
         this.snapshots.push(this.outcome_event.snapshot)
-        dispatcher.emit("machine control report ready", {snapshots: this.snapshots})
-        console.log(`--------> send ${this.name}`, this.snapshots)
+        const extra = { "zoneId": this.zoneId, "zoneName": global.ZONES[this.zoneId].zoneName }
+        dispatcher.emit("machine control report ready", {snapshots: this.snapshots, extra})
+        // console.log(`--------> send ${this.name}`, this.snapshots)
         this.snapshots = []
     }
 

@@ -6,9 +6,8 @@ const {djangoDate} = require('../utils/Date')
 const report = {
     photos: [],
     async add(snapshot) {
-        let drawedBuffer = await new Drawer(snapshot.buffer).draw_detections(snapshot.detections)
+        let drawedBuffer = await new Drawer(snapshot.buffer).draw_detections(snapshot)
         const imagePath = this.upload(drawedBuffer)
-        console.log(snapshot)
         const photoRecord = {"image": imagePath, "date": djangoDate(new Date(snapshot.received))}
         this.photos.push(photoRecord)
     },
@@ -49,7 +48,7 @@ const report = {
     }
 }
 
-dispatcher.on("machine control report ready", async ({snapshots}) => {
+dispatcher.on("machine control report ready", async ({snapshots, extra}) => {
     for (const snapshot of snapshots) await report.add(snapshot)
-    report.send({ "zoneId": 54, "zoneName": "zone1" })
+    report.send(extra)
 })
