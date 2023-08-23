@@ -12,7 +12,6 @@ class Drawer {
         return this.buffer
     }
     async draw_detections(snapshot) {
-        console.log("draw!", snapshot)
         let promises = [this.draw_box(snapshot.zoneBbox, "green")]
         if (snapshot.detections.length > 0) {
             for (const person of snapshot.detections) {

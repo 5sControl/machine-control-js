@@ -29,12 +29,15 @@ dispatcher.on("new snapshot received", async ({snapshot}) => {
         if (persons.length > 0) {
             for (const person of persons) {
                 if (bboxAtWorkspace(person.bbox, global.ZONES[zoneId].bbox)) {
+                    console.log(zoneId, "worker detected")
                     dispatcher.emit("worker detected", {snapshot, zoneId, notForConsole: true })
                 } else {
+                    console.log(zoneId, "worker not detected")
                     dispatcher.emit("worker not detected", {snapshot, zoneId, notForConsole: true })
                 }
             }
         } else {
+            console.log(zoneId, "worker not detected, without any detection")
             dispatcher.emit("worker not detected", {snapshot, zoneId, notForConsole: true })
         }
     }
