@@ -10,7 +10,7 @@ console.log("incoming process.env.extra: ", process.env.extra)
 if (!process.env.extra) process.env.extra = fakeExtra
 
 // create zones
-const coords = JSON.parse(process.env.extra).extra[0].coords
+const coords = JSON.parse(process.env.extra)[0].coords
 global.ZONES = {}
 for (const zone of coords) {
     const {x1, x2, y1, y2, zoneId, zoneName} = zone
