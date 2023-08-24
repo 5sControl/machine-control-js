@@ -13,7 +13,7 @@ class YOLO_NAS {
     labels
     
     inputShape = [1, 3, 640, 640]
-    scoreThreshold = 0.5
+    scoreThreshold = 0.25
     iouThreshold = 0.2
     topk = 100
     

@@ -36,6 +36,9 @@ class Drawer {
         this.ctx.beginPath()
         this.ctx.rect(x, y, width, height)
         this.ctx.stroke()
+        // this.ctx.fillStyle = "white"
+        // this.ctx.font = "48px serif"
+        // this.ctx.fillText(`${Math.floor(score * 100)}`, x, y)
         this.buffer = await this.canvas.encode('jpeg', 50)
     }
     async drawEvent(text) {
