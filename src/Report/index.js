@@ -26,7 +26,7 @@ const report = {
     },
     send(extra) {
         const json = {
-            "algorithm": "machine_control",
+            "algorithm": "machine_control_js",
             "camera": process.env.folder?.split("/")[1],
             "start_tracking": this.photos[0].date,
             "stop_tracking": this.photos[this.photos.length - 1].date,
