@@ -13,7 +13,7 @@ class YOLO_NAS {
     labels
     
     inputShape = [1, 3, 640, 640]
-    scoreThreshold = 0.25
+    scoreThreshold = 0.5
     iouThreshold = 0.2
     topk = 100
     
@@ -48,9 +48,11 @@ class YOLO_NAS {
         return imageData
     }
 
-    async detect(buffer) {
-    
+    async detect(buffer, bbox) {
+
         // Buffer -> Tensor
+        this.bufferWidth = bbox[2]
+        this.bufferHeight = bbox[3]
         const imageData = await this.getImageData(buffer, this.inputShape[2], this.inputShape[3])
         const preprocessedData = this.preprocess(imageData.data, this.inputShape[2], this.inputShape[3])
         const tensor = new ort.Tensor("float32", preprocessedData, this.inputShape)
@@ -84,8 +86,8 @@ class YOLO_NAS {
                 const score = Math.max(...scores)
                 const label = scores.indexOf(score)
                 let [y1, x1, y2, x2] = box.slice(i * 4, (i + 1) * 4)
-                const ratioX = 1080 / 640
-                const ratioY = 1920 / 640
+                const ratioX = this.bufferHeight / 640
+                const ratioY = this.bufferWidth / 640
                 x1 *= ratioX
                 x2 *= ratioX
                 y1 *= ratioY
