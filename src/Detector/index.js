@@ -42,6 +42,7 @@ dispatcher.on("new snapshot received", async ({snapshot}) => {
         const croppedBuffer = await cutRegionFromBlob(snapshot.buffer, global.ZONES[zoneId].bbox)
         const detections = await detector.detect(croppedBuffer, global.ZONES[zoneId].bbox) //server
         const persons = detections.filter(d => d.class === 'person')
+        
         snapshot.detections = persons
         snapshot.zoneBbox = global.ZONES[zoneId].bbox
         if (persons[0]) {

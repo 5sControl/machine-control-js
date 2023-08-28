@@ -51,6 +51,8 @@ class YOLO_NAS {
     async detect(buffer, bbox) {
 
         // Buffer -> Tensor
+        this.bufferX = bbox[0]
+        this.bufferY = bbox[1]
         this.bufferWidth = bbox[2]
         this.bufferHeight = bbox[3]
         const imageData = await this.getImageData(buffer, this.inputShape[2], this.inputShape[3])
@@ -103,7 +105,7 @@ class YOLO_NAS {
                         score: score,
                         classId: label,
                         class: this.labels[label],
-                        bbox: [y1, x1, width, height]
+                        bbox: [y1 + this.bufferX, x1 + this.bufferY, width, height]
                     })
                     break
                 }

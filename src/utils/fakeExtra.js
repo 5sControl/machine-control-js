@@ -4,7 +4,7 @@ const extra = [
             {
                 "x1": 280,
                 "x2": 1480,
-                "y1": 0,
+                "y1": 200,
                 "y2": 1000,
                 "zoneId": 1,
                 "zoneName": "zone zone1"
