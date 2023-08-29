@@ -13,12 +13,19 @@ for (const zoneId in global.ZONES) {
     }
 }
 
-const detector = require('../../../js-inference-server/src/Detector')
+
 dispatcher.on("new snapshot received", async ({snapshot}) => {
     for (const zoneId in global.ZONES) {
-
-        const detections = await detector.detect(snapshot.buffer, global.ZONES[zoneId].bbox)
-        
+        const body = new FormData()
+        body.set("buffer", new Blob([snapshot.buffer]))
+        body.set("zone", JSON.stringify(global.ZONES[zoneId].bbox))
+        let detections = []
+        try {
+            const response = await fetch("http://0.0.0.0:9999/detect", { method: "POST", body })
+            detections = await response.json()
+        } catch (error) {
+            console.log(error)
+        }
         const persons = detections.filter(d => d.class === 'person')
         snapshot.detections = persons
         snapshot.zoneBbox = global.ZONES[zoneId].bbox
