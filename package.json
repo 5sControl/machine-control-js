@@ -21,10 +21,6 @@
   "dependencies": {
     "@napi-rs/canvas": "^0.1.39",
     "@supabase/supabase-js": "^2.26.0",
-    "ndarray": "^1.0.19",
-    "ndarray-ops": "^1.2.2",
-    "onnxruntime-node": "^1.15.1",
-    "socket.io-client": "^4.7.1",
-    "workerpool": "^6.4.0"
+    "socket.io-client": "^4.7.1"
   }
 }

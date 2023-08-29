@@ -1,6 +1,5 @@
 require('./globals')
 require('./Translation')
-require('./Detector')
 require('./Control')
 require('./Report')
 
