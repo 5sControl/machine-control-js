@@ -20,7 +20,7 @@ dispatcher.on("new snapshot received", async ({snapshot}) => {
         body.set("zone", JSON.stringify(global.ZONES[zoneId].bbox))
         let detections = []
         try {
-            const response = await fetch("http://0.0.0.0:9999/detect", { method: "POST", body })
+            const response = await fetch(`${process.env.server_url}:9999/detect`, { method: "POST", body })
             detections = await response.json()
         } catch (error) {
             console.log(error)
