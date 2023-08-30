@@ -37,8 +37,9 @@ class EventRegion {
         console.log(`----> get buffer finish event: ${this.outcome_event.name}`, typeof this.outcome_event.snapshot?.buffer)
         this.snapshots.push(this.outcome_event.snapshot)
         const extra = { "zoneId": this.zoneId, "zoneName": global.ZONES[this.zoneId].zoneName }
-        dispatcher.emit("machine control report ready", {snapshots: this.snapshots, extra})
-        console.log(`--------> send ${this.name}`, this.snapshots)
+        let sendedSnapshots = structuredClone(this.snapshots)
+        dispatcher.emit("machine control report ready", {snapshots: sendedSnapshots, extra})
+        console.log(`--------> send ${this.name}`, sendedSnapshots)
         this.snapshots = []
     }
 

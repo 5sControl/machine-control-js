@@ -70,7 +70,7 @@ function is_working_time() {
     const finish_work_day = convert_time_to_minutes('18:00')
     
     const date = new Date()
-    const hour = date.getHours().toString()
+    const hour = (date.getHours() < 10 ? '0' : '' ) + date.getHours().toString()
     const min = (date.getMinutes() < 10 ? '0' : '' ) + date.getMinutes().toString()
     const current_time = convert_time_to_minutes(`${hour}:${min}`)
 

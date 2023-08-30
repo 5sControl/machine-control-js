@@ -13,7 +13,6 @@ for (const zoneId in global.ZONES) {
     }
 }
 
-
 dispatcher.on("new snapshot received", async ({snapshot}) => {
     for (const zoneId in global.ZONES) {
         const body = new FormData()

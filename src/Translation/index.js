@@ -50,9 +50,9 @@ class Translation {
         socket.on("connect", async () => {
             console.log(`Connected to the socket server: ${socketURL}`)
         })
-        socket.on('snapshot_updated', async ({ camera_ip, screenshot }) => {
-            if (camera_ip === camera) this.update(screenshot);
-        });
+        socket.on('snapshot_updated', ({ camera_ip, screenshot }) => {
+            if (camera_ip === camera) this.update(screenshot)
+        })
     }
 
 }
