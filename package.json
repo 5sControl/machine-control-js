@@ -5,7 +5,7 @@
   "description": "",
   "main": "src/_.js",
   "scripts": {
-    "test": "export camera_url=http://192.168.1.110:3456/onvif-http/snapshot?Profile_1 && export folder=images/192.168.1.110 && export server_url=http://192.168.1.110 && export socket_server=ws://localhost:3000 && export is_test=true && node src/_.js"
+    "test": "export camera_url=http://192.168.1.110:3456/onvif-http/snapshot?Profile_1 && export folder=images/192.168.1.110 && export server_url=http://0.0.0.0 && export socket_server=ws://localhost:3000 && export is_test=true && node src/_.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   "homepage": "https://github.com/5sControl/machine-control-js#readme",
   "dependencies": {
     "@napi-rs/canvas": "^0.1.39",
+    "axios": "^1.5.0",
     "socket.io-client": "^4.7.1"
   }
 }
