@@ -23,7 +23,6 @@ dispatcher.on("new snapshot received", async ({snapshot}) => {
             form.append("buffer", new Blob([snapshot.buffer]))
             const {data} = await axios.post(`${process.env.server_url}:9999/detect`, form)
             detections = data
-            console.log(detections)
         } catch (error) {
             console.log(error)
         }
