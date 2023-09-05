@@ -21,5 +21,4 @@ for (const zone of coords) {
 }
 console.log("zones: ", global.ZONES)
 
-process.env.N_CPUS = require('os').cpus().length
 checkDirs([process.env.folder])

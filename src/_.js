@@ -7,7 +7,6 @@ dispatcher.emit("container started", { message: `
 camera_url: ${process.env.camera_url}
 folder: ${process.env.folder}
 server_url: ${process.env.server_url}
-N_CPUS: ${process.env.N_CPUS}
 socket_server: ${process.env.socket_server}
 `
 })

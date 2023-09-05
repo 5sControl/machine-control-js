@@ -57,4 +57,3 @@ class Translation {
 
 }
 new Translation()
-// require('./Batch.js')
