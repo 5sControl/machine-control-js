@@ -49,6 +49,7 @@ const report = {
 }
 
 dispatcher.on("machine control report ready", async ({snapshots, extra}) => {
+    if (snapshots[0] === snapshots[1]) return
     for (const [i, snapshot] of snapshots.entries()) {
         await report.add(snapshot, isDanger = [1,2].includes(i))
     }
