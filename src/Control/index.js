@@ -1,6 +1,5 @@
 const EventAccumulator = require("./EventAccumulator")
 const EventRegion = require('./EventRegion')
-const axios = require('axios')
 
 // create zones
 const coords = JSON.parse(process.env.extra)[0].coords
@@ -34,8 +33,11 @@ dispatcher.on("new snapshot received", async ({snapshot}) => {
             const form = new FormData()
             form.append("zone", JSON.stringify(global.ZONES[zoneId].bbox))
             form.append("buffer", new Blob([snapshot.buffer]))
-            const {data} = await axios.post(`${process.env.server_url}:9999/detect`, form)
-            detections = data
+            const response = await fetch(`${process.env.server_url}:9999/detect`, {
+                method: "POST",
+                body: form
+            })
+            detections = await response.json()
         } catch (error) {
             console.log(error)
         }
