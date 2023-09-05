@@ -5,7 +5,7 @@
   "description": "",
   "main": "src/_.js",
   "scripts": {
-    "test": "export server_url=http://0.0.0.0 && export folder=images/0.0.0.0 && export socket_server=ws://localhost:3000 && node src/_.js"
+    "test": "export server_url=http://0.0.0.0 && export folder=images/0.0.0.0 && export socket_server=ws://localhost:3000 && nodemon src/_.js"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/5sControl/machine-control-js#readme",
   "dependencies": {
-    "@napi-rs/canvas": "^0.1.39",
     "socket.io-client": "^4.7.1"
   }
 }

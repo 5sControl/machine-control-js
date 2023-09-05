@@ -27,7 +27,7 @@ class EventRegion {
         console.log(`----> get buffer start event: ${this.income_event.name}`, typeof this.income_event.snapshot.buffer)
         this.snapshots.push(this.income_event.snapshot)
     }
-    finish(zoneId) {
+    async finish(zoneId) {
         if (!this.is_start) return
         if (this.zoneId !== zoneId) return
         console.log(`----> ${this.name} finished, ${this.zoneId}`)
@@ -37,10 +37,29 @@ class EventRegion {
         console.log(`----> get buffer finish event: ${this.outcome_event.name}`, typeof this.outcome_event.snapshot?.buffer)
         this.snapshots.push(this.outcome_event.snapshot)
         const extra = { "zoneId": this.zoneId, "zoneName": global.ZONES[this.zoneId].zoneName }
-        let sendedSnapshots = structuredClone(this.snapshots)
-        dispatcher.emit("machine control report ready", {snapshots: sendedSnapshots, extra})
-        console.log(`--------> send ${this.name}`, sendedSnapshots)
+        if (this.snapshots[0] != this.snapshots[1]) await this.send(this.snapshots, extra)
+        console.log(`--------> ${this.name}`, this.snapshots)
         this.snapshots = []
+    }
+    async send(snapshots, extra) {
+        let flattened_snapshots = structuredClone(snapshots)
+        const form = new FormData()
+        for (const snapshot of flattened_snapshots) {
+            form.append("snapshots", new Blob([snapshot.buffer]))
+            delete snapshot.buffer
+        }
+        form.append("flattened_snapshots", JSON.stringify(flattened_snapshots))
+        form.append("extra", JSON.stringify(extra))
+        form.append("camera_ip", process.env.camera_ip)
+        try {
+            const response = await fetch(`${process.env.server_url}:9999/report`, {
+                method: "POST",
+                body: form
+            })
+            console.log(await response.json())            
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 }
