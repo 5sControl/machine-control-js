@@ -1,4 +1,3 @@
-const {YMD, HMS} = require('./utils/Date')
 const {checkDirs} = require('./utils/Path')
 const fakeExtra = require('./utils/fakeExtra.js')
 global.dispatcher = require('./utils/Dispatcher')
@@ -24,5 +23,4 @@ console.log("zones: ", global.ZONES)
 
 process.env.N_CPUS = require('os').cpus().length
 checkDirs([process.env.folder])
-process.env.launch = `${YMD(new Date())}_${HMS(new Date())}`
 global.is_test = process.env.is_test ? true : false
