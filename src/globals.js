@@ -23,7 +23,6 @@ for (const zone of coords) {
 console.log("zones: ", global.ZONES)
 
 process.env.N_CPUS = require('os').cpus().length
-process.env.currentDebugFolder = `debug/machine-control/${YMD(new Date())}`
-checkDirs([process.env.folder, process.env.currentDebugFolder])
+checkDirs([process.env.folder])
 process.env.launch = `${YMD(new Date())}_${HMS(new Date())}`
 global.is_test = process.env.is_test ? true : false
