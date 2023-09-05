@@ -16,7 +16,7 @@ const report = {
      * @returns {string} imagePath
      */
     upload(buffer) {
-        const imagePath = `${process.env.folder}/${crypto.randomUUID()}.jpeg`
+        const imagePath = `images/${process.env.camera_ip}/${crypto.randomUUID()}.jpeg`
         fs.writeFile(
             imagePath,
             buffer,
@@ -27,7 +27,7 @@ const report = {
     send(extra) {
         const json = {
             "algorithm": "machine_control_js",
-            "camera": process.env.folder?.split("/")[1],
+            "camera": process.env.camera_ip,
             "start_tracking": this.photos[0].date,
             "stop_tracking": this.photos[this.photos.length - 1].date,
             "photos": this.photos,

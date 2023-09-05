@@ -1,6 +1,5 @@
 const io = require('socket.io-client')
 const socketURL = `${process.env.server_url}:3456`
-const camera = process.env.folder?.split('/')[1] || '192.168.1.110'
 const socket = io(socketURL)
 const Snapshot = require('./Snapshot.js')
 
@@ -51,7 +50,7 @@ class Translation {
             console.log(`Connected to the socket server: ${socketURL}`)
         })
         socket.on('snapshot_updated', ({ camera_ip, screenshot }) => {
-            if (camera_ip === camera) this.update(screenshot)
+            if (camera_ip === process.env.camera_ip) this.update(screenshot)
         })
     }
 
