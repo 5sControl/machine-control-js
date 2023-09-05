@@ -38,8 +38,10 @@ class Translation {
                 this.buffer.saveLastLength()
                 this.buffer.current = checkedBuffer
                 this.index++
-                const snapshot = new Snapshot(checkedBuffer, this.index)
-                dispatcher.emit("new snapshot received", { notForConsole: true, snapshot })
+                if (this.index % 2 === 0) {
+                    const snapshot = new Snapshot(checkedBuffer, this.index)
+                    dispatcher.emit("new snapshot received", { notForConsole: true, snapshot })
+                }
             }
         } catch (error) {
             dispatcher.emit("translation update error", { message: error })
