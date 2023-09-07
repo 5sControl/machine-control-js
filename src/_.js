@@ -1,5 +1,5 @@
 require('./globals')
-require('./Translation')
+require('./socket')
 require('./Control')
 
 console.log("container started", `

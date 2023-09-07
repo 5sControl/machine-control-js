@@ -37,29 +37,12 @@ class EventRegion {
         console.log(`----> get buffer finish event: ${this.outcome_event.name}`, typeof this.outcome_event.snapshot?.buffer)
         this.snapshots.push(this.outcome_event.snapshot)
         const extra = { "zoneId": this.zoneId, "zoneName": global.ZONES[this.zoneId].zoneName }
-        if (this.snapshots[0] != this.snapshots[1]) await this.send(this.snapshots, extra)
+        
+        if (this.snapshots[0] != this.snapshots[1]) 
+            dispatcher.emit("machine control report ready", {snapshots: this.snapshots, extra})
+
         console.log(`--------> ${this.name}`, this.snapshots)
         this.snapshots = []
-    }
-    async send(snapshots, extra) {
-        let flattened_snapshots = structuredClone(snapshots)
-        const form = new FormData()
-        for (const snapshot of flattened_snapshots) {
-            form.append("snapshots", new Blob([snapshot.buffer]))
-            delete snapshot.buffer
-        }
-        form.append("flattened_snapshots", JSON.stringify(flattened_snapshots))
-        form.append("extra", JSON.stringify(extra))
-        form.append("camera_ip", process.env.camera_ip)
-        try {
-            const response = await fetch(`${process.env.server_url}:9999/report`, {
-                method: "POST",
-                body: form
-            })
-            console.log(await response.json())            
-        } catch (error) {
-            console.log(error)
-        }
     }
 
 }
