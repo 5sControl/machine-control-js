@@ -32,14 +32,12 @@ dispatcher.on("snapshot detected", async ({snapshot}) => {
         let isIntersect = false
         if (snapshot.detections) {
             for (const detection of snapshot.detections) {
-                console.log("intersection", intersection(detection.bbox, global.ZONES[zoneId].bbox))
                 if (intersection(detection.bbox, global.ZONES[zoneId].bbox)) {
                     isIntersect = true
                     break
                 }
             }
         }
-        console.log("isIntersect", isIntersect)
         if (isIntersect) {
             console.log(zoneId, "worker detected")
             dispatcher.emit("worker detected", {snapshot, zoneId, notForConsole: true })
