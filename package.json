@@ -5,7 +5,13 @@
   "description": "",
   "main": "src/_.js",
   "scripts": {
-    "test": "export server_url=http://0.0.0.0 && export folder=images/0.0.0.0 && nodemon src/_.js"
+    "test": "export server_url=http://0.0.0.0 && export folder=images/192.168.1.160 && nodemon src/_.js",
+    "test2": "export server_url=http://0.0.0.0 && export folder=images/192.168.1.162 && nodemon src/_.js",
+    "test3": "export server_url=http://0.0.0.0 && export folder=images/192.168.1.163 && nodemon src/_.js",
+    "test4": "export server_url=http://0.0.0.0 && export folder=images/192.168.1.164 && nodemon src/_.js",
+    "test5": "export server_url=http://0.0.0.0 && export folder=images/192.168.1.165 && nodemon src/_.js",
+    "test6": "export server_url=http://0.0.0.0 && export folder=images/192.168.1.166 && nodemon src/_.js",
+    "test9": "export server_url=http://0.0.0.0 && export folder=images/192.168.1.169 && nodemon src/_.js"
   },
   "repository": {
     "type": "git",
