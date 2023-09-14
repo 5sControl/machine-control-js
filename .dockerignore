@@ -3,3 +3,5 @@ videos
 debug
 node_modules
 .idea/
+.git
+.gitignore

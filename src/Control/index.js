@@ -1,5 +1,6 @@
 const EventAccumulator = require("./EventAccumulator")
 const EventRegion = require('./EventRegion')
+const {intersection} = require('./2D.js')
 
 // create zones
 const coords = JSON.parse(process.env.extra)[0].coords
@@ -26,25 +27,18 @@ for (const zoneId in global.ZONES) {
     }
 }
 
-dispatcher.on("new snapshot received", async ({snapshot}) => {
+dispatcher.on("snapshot detected", async ({snapshot}) => {
     for (const zoneId in global.ZONES) {
-        let detections = []
-        try {
-            const form = new FormData()
-            form.append("zone", JSON.stringify(global.ZONES[zoneId].bbox))
-            form.append("buffer", new Blob([snapshot.buffer]))
-            const response = await fetch(`${process.env.server_url}:9999/detect`, {
-                method: "POST",
-                body: form
-            })
-            detections = await response.json()
-        } catch (error) {
-            console.log(error)
+        let isIntersect = false
+        if (snapshot.detections) {
+            for (const detection of snapshot.detections) {
+                if (intersection(detection.bbox, global.ZONES[zoneId].bbox)) {
+                    isIntersect = true
+                    break
+                }
+            }
         }
-        const persons = detections.filter(d => d.class === 'person')
-        snapshot.detections = persons
-        snapshot.zoneBbox = global.ZONES[zoneId].bbox
-        if (persons[0]) {
+        if (isIntersect) {
             console.log(zoneId, "worker detected")
             dispatcher.emit("worker detected", {snapshot, zoneId, notForConsole: true })
         } else {
