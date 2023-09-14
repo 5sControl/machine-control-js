@@ -34,7 +34,7 @@ dispatcher.on("snapshot detected", async ({snapshot}) => {
             for (const detection of snapshot.detections) {
                 if (intersection(detection.bbox, global.ZONES[zoneId].bbox)) {
                     isIntersect = true
-                    break
+                    detection.isIntersect = true
                 }
             }
         }
