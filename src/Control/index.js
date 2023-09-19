@@ -2,19 +2,6 @@ const EventAccumulator = require("./EventAccumulator")
 const EventRegion = require('./EventRegion')
 const {intersection} = require('./2D.js')
 
-// create zones
-const coords = JSON.parse(process.env.extra)[0].coords
-global.ZONES = {}
-for (const zone of coords) {
-    const {x1, x2, y1, y2, zoneId, zoneName} = zone
-    global.ZONES[zoneId] = {
-        zoneId,
-        zoneName,
-        bbox: [x1, y1, x2 - x1, y2 - y1]
-    }
-}
-console.log("zones: ", global.ZONES)
-
 let controls = {}
 for (const zoneId in global.ZONES) {
     const worker_out_workplace = new EventAccumulator("worker out workplace", "worker not detected", "worker detected", zoneId)

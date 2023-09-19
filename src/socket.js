@@ -2,10 +2,10 @@ const io = require('socket.io-client')
 
 /* >------------------------------------------------------------------------------------------------------------------------> **/
 // subscription
-
     const socket = io(`${process.env.server_url}:9999`, {
         query: {
-            camera_ip: process.env.camera_ip
+            camera_ip: process.env.camera_ip,
+            zones: JSON.stringify(global.ZONES_bboxes)
         }
     })
     socket.on("connect", () => console.log(`\x1B[32m ✅ Your algorithm is subscribed to the inference server`))
