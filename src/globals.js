@@ -1,7 +1,9 @@
 global.dispatcher = require('./Dispatcher')
 
 process.env.camera_ip = process.env.folder.split('/')[1]
-if (!process.env.extra) process.env.extra = `[{"coords":[{"x1":280,"x2":1480,"y1":200,"y2":900,"zoneId":1,"zoneName":"zone zone1"},{"x1":1564,"x2":1914,"y1":783,"y2":1073,"zoneId":2,"zoneName":"zone zone2"}]}]`
+if (!process.env.extra) process.env.extra = `[{"coords":[{"x1":80,"x2":1480,"y1":500,"y2":1080,"zoneId":1,"zoneName":"zone zone1"}]}]`
+// if (!process.env.extra) process.env.extra = `[{"coords":[{"x1":280,"x2":880,"y1":200,"y2":900,"zoneId":1,"zoneName":"zone zone1"}]}]`
+// if (!process.env.extra) process.env.extra = `[{"coords":[{"x1":280,"x2":580,"y1":200,"y2":600,"zoneId":1,"zoneName":"zone zone1"},{"x1":880,"x2":1914,"y1":583,"y2":1073,"zoneId":2,"zoneName":"zone zone2"}]}]`
 
 // create zones
 const coords = JSON.parse(process.env.extra)[0].coords
