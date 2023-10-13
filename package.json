@@ -1,6 +1,6 @@
 {
   "name": "machine-control-js",
-  "version": "v0.1.1",
+  "version": "v0.5.0",
   "date": "26.07.2023",
   "description": "",
   "main": "src/_.js",
@@ -12,7 +12,8 @@
     "test4": "export server_url=http://0.0.0.0 && export folder=images/192.168.1.164 && nodemon src/_.js",
     "test5": "export server_url=http://0.0.0.0 && export folder=images/192.168.1.165 && nodemon src/_.js",
     "test6": "export server_url=http://0.0.0.0 && export folder=images/192.168.1.166 && nodemon src/_.js",
-    "test9": "export server_url=http://0.0.0.0 && export folder=images/192.168.1.169 && nodemon src/_.js"
+    "test9": "export server_url=http://0.0.0.0 && export folder=images/192.168.1.169 && nodemon src/_.js",
+    "publish": "sudo docker build -t 5scontrol/machine_control_js:v0.5.0 . --platform=linux/amd64 && sudo docker push 5scontrol/machine_control_js:v0.5.0"
   },
   "repository": {
     "type": "git",
