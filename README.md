@@ -56,7 +56,7 @@ We also have a list of [good first issues](https://github.com/5sControl/machine-
 1. [inference-server-js](https://github.com/5sControl/inference-server-js) - the server for Machine control JS algorithm
 
 # **License**
-[AGPL-3.0](LICENSE.md)
+[AGPL-3.0](LICENSE)
 
 <br>
 <div align="center">
