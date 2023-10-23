@@ -1,12 +1,9 @@
-# Machine control JS
-
-# About Machine control
+# About Machine control JS
 Machine control is one of the Official [5controlS](https://5controls.com/) algorithm.
 
 Designed to handle complex industrial processes with ease, this innovative tool is perfect for use with semi-automated equipment. With Machine Control you can optimize your industrial processes and keep your equipment running smoothly, saving you time and money.
 
 ![Frame 2608741](https://github.com/5sControl/machine-control/assets/131950264/5c074f95-2ea6-4247-9aba-5efe944b7188)
-
 
 ## Key features
 
@@ -15,34 +12,11 @@ Designed to handle complex industrial processes with ease, this innovative tool 
 
 **Plug-in Machine control to 5controlS platform to detect when your workers are absent!**
 
-# **Project repositories**
-
-The connections between the project repositories are illustrated by the following diagram. 
-
-> Please note that to ensure system stability and perfomance you can use one of the Official 5S algorithms instead of Your Algorithm.
-
-<p align="center">
-  <img src="https://github.com/5sControl/5s-backend/assets/131950264/60cbc463-ce88-4af2-a4ed-7e3c01f7a955" alt="5controlS-diagram" />
-</p>
-
-**5controlS Platform:**
-1. [5s-backend](https://github.com/5sControl/5s-backend)
-2. [5s-frontend](https://github.com/5sControl/5s-frontend)
-3. [5s-algorithms-controller](https://github.com/5sControl/5s-algorithms-controller)
-4. [5s-onvif](https://github.com/5sControl/5s-onvif)
-5. [5s-onvif-finder]()
-
-**Official Algorithms:**
-1. [min-max](https://github.com/5sControl/min-max)
-2. [idle-control](https://github.com/5sControl/idle-control)
-3. [operation-control-js](https://github.com/5sControl/operation-control-js)
-4. [machine-control](https://github.com/5sControl/machine-control)
-5. [machine-control-js](https://github.com/5sControl/machine-control-js)
-
-**Algorithms Servers:**
-1. [inference-server-js]()
+> Learn more about Machine control JS on the [5controlS website](https://5controls.com/solutions/machine-control).
 
 # **Documentation**
+
+[Documentation for Developers](https://github.com/5sControl/5s-dev-documentation/wiki)
 
 [User Documentation](https://github.com/5sControl/Manufacturing-Automatization-Enterprise/wiki)
 
@@ -59,12 +33,30 @@ Please note that this project is released with a [Contributor Code of Conduct](C
 
 If you want to contribute, read  our [contributing guide](CONTRIBUTING.md) to learn about our development process and pull requests workflow.
 
-We also have a list of [good first issues]() that will help you make your first step to beсoming a 5S contributor.
+We also have a list of [good first issues](https://github.com/5sControl/machine-control-js/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) that will help you make your first step to beсoming a 5S contributor.
+
+# **Project repositories**
+
+**5controlS Platform:**
+1. [5s-webserver](https://github.com/5sControl/5s-webserver)
+2. [5s-backend](https://github.com/5sControl/5s-backend)
+3. [5s-frontend](https://github.com/5sControl/5s-frontend)
+4. [5s-algorithms-controller](https://github.com/5sControl/5s-algorithms-controller)
+5. [5s-onvif](https://github.com/5sControl/5s-onvif)
+6. [5s-onvif-finder](https://github.com/5sControl/5s-onvif-finder)
+  
+**Official Algorithms:**
+1. [min-max](https://github.com/5sControl/min-max)
+2. [idle-control](https://github.com/5sControl/idle-control)
+3. [operation-control-js](https://github.com/5sControl/operation-control-js)
+4. [machine-control](https://github.com/5sControl/machine-control)
+5. [machine-control-js](https://github.com/5sControl/machine-control-js)
+
+**Algorithms Servers:**
+1. [inference-server-js](https://github.com/5sControl/inference-server-js) - the server for Machine control JS algorithm
 
 # **License**
-
-> Please note that [some](Components-with-copyleft-licensies.md) of the Official Algorithms are using copyleft licensies.
-
+[AGPL-3.0](LICENSE)
 
 <br>
 <div align="center">
