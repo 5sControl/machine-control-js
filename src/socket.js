@@ -5,7 +5,8 @@ const io = require('socket.io-client')
     const socket = io(`${process.env.server_url}:9999`, {
         query: {
             camera_ip: process.env.camera_ip,
-            zones: JSON.stringify(global.ZONES_bboxes)
+            zones: JSON.stringify(global.ZONES_bboxes),
+            algorithm_name: process.env.algorithm_name
         }
     })
     socket.on("connect", () => console.log(`\x1B[32m ✅ Your algorithm is subscribed to the inference server`))
@@ -14,13 +15,13 @@ const io = require('socket.io-client')
 /* <------------------------------------------------------------------------------------------------------------------------< **/
 // get detected snapshot
 
-    socket.on("snapshot detected", (snapshot) => dispatcher.emit("snapshot detected", {snapshot}))
+    socket.on("snapshot detected", (snapshot) => dispatcher.emit("snapshot detected", {snapshot, notForConsole: true}))
 
 /* >------------------------------------------------------------------------------------------------------------------------> **/
 // send ready report
 
     dispatcher.on("machine control report ready", async ({snapshots, extra}) => {
-        socket.emit("send report", {snapshots, extra }, (response) => console.log(response.status))
+        socket.emit("send report", {snapshots, extra, algorithm_name: process.env.algorithm_name }, (response) => console.log(response.status))
     })
 
 /* ------------------------------------------------------------------------------------------------------------------------ **/
